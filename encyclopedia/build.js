@@ -1,6 +1,10 @@
 // ============================================================
 //  STARFORGE 百科 - 数据合并构建脚本
-//  将所有数据文件合并到 index.html 中
+//  【注意】此为旧版（LEGACY）构建脚本，不再作为主流程维护。
+//  当前主线是 encyclopedia-vue 前端项目。
+//  新增的数据目录（resources/disasters/foreshadowing/world-rules/
+//  chronology/validation）未接入此脚本，旧版可能无法完整构建。
+//  所有新功能仅在 Vue 版中实现。
 // ============================================================
 const fs = require('fs');
 const path = require('path');
