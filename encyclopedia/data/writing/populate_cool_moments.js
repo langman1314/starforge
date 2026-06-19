@@ -402,7 +402,108 @@ const ENTRIES_COOL_MOMENTS = [
     spoilerLevel: 'final',
     status: 'active',
     tags: ['爽点', '终局', '歼星舰主炮', '天幕破碎', '全书闭环']
-  }
+  },
+
+  // ============================================================
+  //  【v0.2新增系统专属爽点】25-30
+  // ============================================================
+
+  {
+    id: 'cool-system-permission-upgrade',
+    name: '爽点：系统权限升级时刻',
+    aliases: ['权限突破', '系统进化'],
+    category: 'cool-moments',
+    summary: '每次系统权限升级都是一次仪式感极强的名场面——系统界面重置、冰蓝色光芒闪烁、新增功能列表展开。是阶段性成长的标志。',
+    detail: '<p><strong>适用阶段：</strong>贯穿全书，每卷至少一次</p><p><strong>爽点类型：</strong>成长标志 · 阶段性验收</p><p><strong>触发条件：</strong>林烬满足权限升级条件，系统自动触发升级程序。</p><p><strong>爽点展开：</strong>升级时刻的视觉仪式：系统界面在一瞬间凝固，所有文字消失，只留下中央一个不断扩大的冰蓝色光圈。光圈扩散到整个视野后碎裂成数据流，重组为新的界面。新的权限等级以放大的字体显示在界面顶部，下方依次展开本次升级解锁的新功能列表。整个过程持续约3-5秒，伴随着低沉的共鸣声（只有林烬能听到）。每次升级都伴随着一系列实际变化——新增功能、提升效率、扩大扫描范围。读者在每一次升级中都能直观地感受到主角的成长："他又变强了，而且这次强得不一样。"</p><p><strong>情绪价值：</strong>每次权限升级都是对读者追更的回报——"你看到了他一步步积累的过程，现在你看到了积累的结果。"升级的仪式感让枯燥的"收集-升级"循环变成了值得期待的高光时刻。</p>',
+    firstAppearance: '第1卷末（0→1级）',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system'],
+    relatedFactions: [],
+    relatedLocations: [],
+    relatedEvents: [],
+    spoilerLevel: 'none',
+    status: 'active',
+    tags: ['爽点', '系统', '权限升级', '成长标志', '全书贯穿']
+  },
+  {
+    id: 'cool-system-abnormal-display',
+    name: '爽点：系统显示异常引发围观',
+    aliases: ['未知级天赋', '系统识别引震惊'],
+    category: 'cool-moments',
+    summary: '当别人看到林烬的系统面板时，评级"未知级"引发震撼——考场历史上从未出现过的评级。这种"异常"本身就是权力的宣告。',
+    detail: '<p><strong>适用阶段：</strong>中后期（当主角不再隐藏系统时）</p><p><strong>爽点类型：</strong>身份揭露 · 认知颠覆</p><p><strong>触发条件：</strong>林烬在某种情况下必须展示自己的天赋面板，或者其他人通过某种方式看到了他的系统信息。</p><p><strong>爽点展开：</strong>在万族考场的体系认知中，天赋评级从F到S，S级就是天花板。没有人见过S级之上的评级。当林烬的天赋面板展现在他人面前时——无论是人类盟友、异族领主还是高维裁判——所有人的第一反应不是"强"，而是"无法理解"。"未知级"三个字意味着考场规则本身无法对这个天赋进行分类。这在考场的逻辑中只有一种解释：这个天赋不属于考场。这个认知对人的冲击比"这个天赋很强"大得多——因为它意味着林烬的存在本身就在考场规则之外。</p><p><strong>情绪价值：</strong>别人震惊的不是"他有多强"，而是"他超出了我们的认知体系"。这种"我理解不了你，所以你是不可战胜的"的敬畏感，比单纯的战力碾压更有震撼力。</p>',
+    firstAppearance: '第3卷或第4卷',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system'],
+    relatedFactions: [],
+    relatedLocations: [],
+    relatedEvents: [],
+    spoilerLevel: 'major',
+    status: 'active',
+    tags: ['爽点', '系统', '未知级', '身份揭露', '认知颠覆']
+  },
+  {
+    id: 'cool-system-unexpected-recovery',
+    name: '爽点：回收远超预期的物品',
+    aliases: ['惊喜回收', '隐藏价值发现'],
+    category: 'cool-moments',
+    summary: '在看似普通的废墟中回收出远超预期的旧日文明遗物——别人以为是垃圾，系统检测出是高阶物品。捡漏爽点的系统化版本。',
+    detail: '<p><strong>适用阶段：</strong>贯穿全书，持续爽点</p><p><strong>爽点类型：</strong>捡漏 · 信息差 · 惊喜反转</p><p><strong>触发条件：</strong>林烬在探索中遇到一件外观普通但实际价值极高的旧日文明遗物。</p><p><strong>爽点展开：</strong>捡漏爽点在本书中通过系统被"系统化"了。林烬不需要靠"运气"或"直觉"来捡漏——他靠系统的识别能力来发现别人看不到的价值。典型场景：林烬经过一片被其他穿越者反复搜索过的废墟，系统突然标记了一个不起眼的角落。他走过去，拨开浮土，露出一块锈蚀严重的金属板。别人看到的是"不值钱的废铁"，系统显示的是【旧日人类文明·高能电容阵列残片·完整度3.2%——可拆解获得：高能电容×1、能量导管×2、灵能导线碎片×3】。一次看似无聊的探索，突然变成了一次丰厚的收获。这种反转不仅让读者爽，更强化了系统的核心价值——它不是战斗系统，但它让主角在别人看不到的地方找到财富。</p><p><strong>情绪价值：</strong>"别人反复搜索过的地方，我还能找到好东西"的智力优越感。信息差带来的"你们看不见，我看得见"的独特快感。</p>',
+    firstAppearance: '第1章',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system'],
+    relatedFactions: [],
+    relatedLocations: [],
+    relatedEvents: [],
+    spoilerLevel: 'none',
+    status: 'active',
+    tags: ['爽点', '系统', '捡漏', '信息差', '持续爽点']
+  },
+  {
+    id: 'cool-system-flaw-counter',
+    name: '爽点：利用系统缺陷反杀',
+    aliases: ['缺陷利用', '反向战术'],
+    category: 'cool-moments',
+    summary: '系统的隐藏缺陷（如数据损坏、认知偏差）在早期会导致失误，但在后期林烬学会利用这些缺陷作为战术武器——例如故意让系统输出错误信息来误导窃听者。',
+    detail: '<p><strong>适用阶段：</strong>中后期（主角充分理解系统缺陷后）</p><p><strong>爽点类型：</strong>智斗 · 缺陷武器化</p><p><strong>触发条件：</strong>林烬需要对抗一个有能力监控或窃取系统信息的敌人（如高维裁判、旧神眷族）。</p><p><strong>爽点展开：</strong>在经历了系统数据损坏导致的决策失误后（参见伏笔：系统的数据损坏），林烬不再无条件信任系统。他开始系统地记录和验证系统的信息输出，逐步掌握了哪些信息可靠、哪些信息可疑。到了后期，当更强的敌人开始利用考场规则监控林烬的系统操作时，林烬反其道而行之——他故意让系统输出损坏区域的信息，让敌人获得"错误的情报"。敌人根据这些错误信息做出决策，落入林烬预设的陷阱。当裁决者零号在决战中自信满满地说"你的底牌我已经全部掌握"时，林烬知道——零号掌握的那些信息，正是他通过损坏区"喂"给它的。</p><p><strong>情绪价值：</strong>缺陷不再是弱点，而是武器。主角从"被缺陷坑"到"用缺陷坑人"的转变，展现了他对系统的理解从"使用"进化到了"掌控"。敌人以为自己在偷主角的情报，实际上主角在给敌人喂假情报。</p>',
+    firstAppearance: '第4卷或第5卷',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system', 'char-judge-zero', 'char-sui-ming'],
+    relatedFactions: [],
+    relatedLocations: [],
+    relatedEvents: [],
+    spoilerLevel: 'major',
+    status: 'active',
+    tags: ['爽点', '系统', '缺陷利用', '智斗', '反向战术']
+  },
+  {
+    id: 'cool-system-permission-history',
+    name: '爽点：权限组合揭示历史真相',
+    aliases: ['权限解锁历史', '文明记忆闪现'],
+    category: 'cool-moments',
+    summary: '当林烬收集到足够的权限代码碎片并解锁特定权限等级时，系统会触发"文明记忆闪现"——以沉浸式视角体验前一轮文明的关键历史时刻。',
+    detail: '<p><strong>适用阶段：</strong>中后期（权限4级以上，每次到达关键等级时触发）</p><p><strong>爽点类型：</strong>世界观扩展 · 沉浸式叙史</p><p><strong>触发条件：</strong>林烬的权限等级达到特定阈值（4级、6级、8级、10级），且已收集足够相关的权限代码碎片。</p><p><strong>爽点展开：</strong>"文明记忆闪现"是系统最特殊的隐藏功能之一。当触发条件满足时，系统会临时接管林烬的感知，将他带入一段沉浸式的历史记忆——他不再是旁观者，而是以"第一人称视角"体验前一轮人类文明的关键时刻。第一次触发在权限4级：林烬看到第六轮文明的最后一天——城市燃烧、舰队坠毁、幸存者挤在最后的堡垒中。他听到第六轮文明领袖最后的广播："第七轮的人类，如果你们能听到这段记录——不要重复我们的错误。我们最大的错误不是不够强，而是发现真相太晚了。"这些历史记忆不仅是世界观展示，更包含了对当前决策有直接指导意义的信息——前六轮文明的失败原因、考场规则的隐藏机制、旧日文明隐藏的后备方案。</p><p><strong>情绪价值：</strong>"你不是在阅读历史，你是在体验历史。"沉浸式的历史体验让世界观揭示不再是枯燥的信息灌输，而是有情感冲击的叙事体验。每一次记忆闪现都是对"六次失败"这个设定的深度开掘——读者和林烬一起，一步步理解前六轮到底发生了什么。</p>',
+    firstAppearance: '第3卷末或第4卷初',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system', 'char-sui-ming'],
+    relatedFactions: ['旧日人类文明'],
+    relatedLocations: [],
+    relatedEvents: [],
+    spoilerLevel: 'major',
+    status: 'active',
+    tags: ['爽点', '系统', '文明记忆', '历史体验', '世界观扩展']
+  },
+  {
+    id: 'cool-system-title-final-payoff',
+    name: '爽点：标题回扣终极兑现',
+    aliases: ['歼星舰点火', '书名闭环'],
+    category: 'cool-moments',
+    summary: '全书最高爽点——余火号歼星舰修复完成、主引擎点火、全文明广播宣布反攻。标题承诺的终极兑现时刻。',
+    detail: '<p><strong>适用阶段：</strong>第六卷（终局）</p><p><strong>爽点类型：</strong>全书最高爽点 · 闭合叙事弧线</p><p><strong>触发条件：</strong>林烬完成余火号歼星舰的全部修复工作，燧明AI完整体恢复，蓝星文明舰队集结完毕。</p><p><strong>爽点展开：</strong>这是全书每一个字的最终归处。第一章捡到第一块碎片时，没有人——包括林烬自己——知道那块碎片最终通向哪里。数十卷的积累、数百次的回收和修复、每一块权限碎片的收集、每一次冒险的牺牲——所有的一切汇聚在这一刻。余火号主引擎启动的轰鸣传遍整个破碎星环。蓝星文明频道中，所有穿越者同时收到一条全文明广播。频道从恐慌和混乱中安静下来。然后所有人听到了林烬的声音："蓝星全体穿越者注意。这里是余火号歼星舰。考场屏障已被突破。你们不需要再求生了——跟我们来。"之后是燧明AI的声音——第一次在所有人类频道中以完整形态发声："旧日人类文明辅助AI燧明，向第七轮人类文明全体成员报到。文明数据库状态：完整。舰队状态：战备。目标：万族考场·高维裁决区。出发时间：现在。"</p><p><strong>情绪价值：</strong>一本书的承诺在这一刻兑现。这不是一个章节的爽点，这是整本书的叙事弧线汇聚的唯一焦点。当读者回看第一章，看到林烬捡起那块黑色废铁时，他们会意识到——从那一刻起，这个结局就已经注定了。这就是"别人造木屋，我修歼星舰"这个标题给读者的承诺：你追更的每一章，都在为这一刻积累力量。</p>',
+    firstAppearance: '第6卷',
+    relatedCharacters: ['protagonist-linjin', 'protagonist-recycle-system', 'char-sui-ming'],
+    relatedFactions: ['faction-yuhuo-city', 'faction-fire-corps'],
+    relatedLocations: ['loc-shattered-ring'],
+    relatedEvents: [],
+    spoilerLevel: 'final',
+    status: 'hidden',
+    tags: ['爽点', '终局', '标题回扣', '全书最高爽点', '文明广播']
+  },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

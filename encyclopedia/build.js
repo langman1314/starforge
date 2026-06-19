@@ -45,13 +45,16 @@ let html = fs.readFileSync(indexPath, 'utf-8');
 const entriesJson = JSON.stringify(allEntries, null, 2);
 
 // 替换空的 entries 数组占位
-// 查找 'entries: [\n    // Example entry' 并替换
-const oldStr = 'entries: [\n    // Example entry to demonstrate format:';
-const markerEnd = '  ]\n};\n\n/* ==================================================================';
+// 查找 entries 数组的起始和结束位置
+const startMarker = '// ---- Entries (fill these arrays) ----';
+const endMarker = '/* ==================================================================\n   ENGINE';
 
-// 查找起始位置
-const startIdx = html.indexOf('entries: [\n    // Example entry');
-const endIdx = html.indexOf(markerEnd);
+// 查找起始位置（entries: [ 之后）
+const startLine = html.indexOf('entries: [');
+const endIdx = html.indexOf(endMarker);
+
+// 从 startLine 往前找到行首
+const startIdx = startLine;
 
 if (startIdx === -1 || endIdx === -1) {
   console.error('ERROR: Could not find placeholder in index.html');
