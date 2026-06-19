@@ -580,8 +580,8 @@ const ENTRIES_TO_ADD = [
   // WR-000 世界总览 v1.0（新条目，对应附件）
   // ===================================================================
   {
-    id: 'WR-000',
-    code: 'WR-000',
+    id: 'world-overview-v2',
+    code: 'WR-005',
     name: '世界总览 v1.0',
     aliases: ['世界观总纲', '世界核心定位'],
     category: 'world-overview',
@@ -732,8 +732,8 @@ const ENTRIES_TO_ADD = [
   // HIS 系列 - 历史真相
   // ===================================================================
   {
-    id: 'HIS-001',
-    code: 'HIS-001',
+    id: 'six-failures-summary',
+    code: 'HIS-003',
     name: '前六轮人类文明失败史',
     aliases: ['失败史', '文明轮回史'],
     category: 'history',

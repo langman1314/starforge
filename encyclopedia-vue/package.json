@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-data.cjs && vite build",
+    "build": "node scripts/generate-data.cjs && node scripts/validate-data.cjs && vite build",
     "preview": "vite preview",
-    "generate-data": "node scripts/generate-data.cjs"
+    "generate-data": "node scripts/generate-data.cjs",
+    "validate-data": "node scripts/validate-data.cjs"
   },
   "dependencies": {
     "vue": "^3.4.0",

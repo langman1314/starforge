@@ -6,12 +6,12 @@
 
 const ENTRIES_WORLD_RULES = [
   // ============================================================
-  //  WR-001: 万族考场规则 (arena-rules)
+  //  WR-050: 万族考场规则 (arena-rules)
   // ============================================================
   {
     id: 'arena-rules',
     name: '万族考场规则',
-    code: 'WR-001',
+    code: 'WR-050',
     importance: 'S',
     canonLevel: 'core',
     aliases: ['考场规则', '文明筛选机制', '万族试炼场'],
@@ -39,12 +39,12 @@ const ENTRIES_WORLD_RULES = [
   },
 
   // ============================================================
-  //  WR-002: 高维裁判者 (high-dim-judges)
+  //  WR-051: 高维裁判者 (high-dim-judges)
   // ============================================================
   {
     id: 'high-dim-judges',
     name: '高维裁判者',
-    code: 'WR-002',
+    code: 'WR-051',
     importance: 'A',
     canonLevel: 'core',
     aliases: ['裁决者', '考场监管者', '高维观测者'],
@@ -72,12 +72,12 @@ const ENTRIES_WORLD_RULES = [
   },
 
   // ============================================================
-  //  WR-003: 文明筛选机制 (civilization-filter)
+  //  WR-052: 文明筛选机制 (civilization-filter)
   // ============================================================
   {
     id: 'civilization-filter',
     name: '文明筛选机制',
-    code: 'WR-003',
+    code: 'WR-052',
     importance: 'A',
     canonLevel: 'core',
     aliases: ['文明试炼', '种族筛选'],
