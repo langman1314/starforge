@@ -124,7 +124,7 @@ const ENTRIES_PACING = [
 <h3>三、关键约束</h3>
 <ul>
 <li>赫连獠在第53章正式登场（第三卷前期），不能更早</li>
-<li>赫连獠的status应为destroyed（击败后死亡），但击败过程需充分</li>
+<li>赫连獠的status应为planned，plannedFate为'第三卷中后期被林烬击败'，不得提前设为destroyed</li>
 <li>裁决者零号不能实体登场，通过系统警告、异常度暴涨等埋线</li>
 <li>燧明AI在本卷中后期碎片激活后开始部分揭示系统真相</li>
 <li>投降派线索（FO-006）在本卷首次出现</li>

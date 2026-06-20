@@ -101,7 +101,6 @@ for (const entry of allEntries) {
       error(`缺少必填字段 "${field}"`, entry);
     }
   }
-  // code 字段建议有但不强制
 }
 
 // 2. ID 唯一性
@@ -110,16 +109,13 @@ const idMap = new Map();
 const codeMap = new Map();
 
 for (const entry of allEntries) {
-  // 检查 ID 唯一性
   if (idMap.has(entry.id)) {
     error(`ID 重复: "${entry.id}" (与 ${idMap.get(entry.id)} 冲突)`, entry);
   } else {
     idMap.set(entry.id, entry.name || entry.id);
   }
 
-  // 检查 Code 唯一性
   if (entry.code) {
-    // 处理类似 "SYS-001 / CHR-003" 的双 code
     const codes = entry.code.split('/').map(c => c.trim());
     for (const singleCode of codes) {
       if (codeMap.has(singleCode)) {
@@ -133,47 +129,43 @@ for (const entry of allEntries) {
 
 // 3. 引用完整性
 console.log('--- 检查 3: 引用完整性 ---');
-// 收集所有存在的 ID 和 code
 const validIds = new Set(allEntries.map(e => e.id));
 const validCodes = new Set(codeMap.keys());
 
-// 递归收集条目中引用的所有 ID/code
 const REFERENCE_FIELDS = [
   'relatedCharacters', 'relatedFactions', 'relatedLocations',
   'relatedEvents', 'relatedItems', 'relatedForeshadowing',
 ];
+
+let brokenRefCount = 0;
+let slugRefCount = 0;
 
 for (const entry of allEntries) {
   for (const field of REFERENCE_FIELDS) {
     const refs = entry[field];
     if (!Array.isArray(refs)) continue;
     for (const ref of refs) {
-      // 跳过空值和自由文本（不是代码格式的引用）
       if (!ref || typeof ref !== 'string') continue;
-      // 自由文本（如 "前期考场异常事件暗示有监管者存在"）不校验
+      // 自由文本不校验
       if (!/^[A-Z]+-\d+$/.test(ref) && !/^[A-Z]+-\d+\s*\/\s*[A-Z]+-\d+$/.test(ref)) {
         continue;
       }
-      // 如果是双 code 格式，拆开校验
       const parts = ref.split('/').map(s => s.trim());
       for (const part of parts) {
         if (!validIds.has(part) && !validCodes.has(part)) {
           warn(`引用 "${ref}" 中的 "${part}" 未找到对应条目`, entry);
+          brokenRefCount++;
         }
       }
     }
   }
 }
 
+console.log(`  引用完整性检查完成, 断裂引用: ${brokenRefCount} 条`);
+
 // 4. 章节格式检查
 console.log('--- 检查 4: 章节格式 ---');
-for (const entry of allEntries) {
-  const app = entry.firstAppearance;
-  if (app && typeof app === 'string') {
-    // 允许的格式: "第X章", "第X章（隐含）", "第一卷", "全书贯穿"
-    // 但是不允许像 "第3章" 但实际章节号明显不合理的情况（仅警告）
-  }
-}
+// 无附加检查
 
 // 5. 状态字段检查
 console.log('--- 检查 5: 状态字段 ---');
@@ -202,7 +194,6 @@ for (const [cat, count] of [...categoryCounts.entries()].sort()) {
 
 // 7. S-level 条目字段完整性检查
 console.log('--- 检查 7: S级条目字段完整性 ---');
-// 以下分类使用自有 schema，不检查标准 S 级字段
 const SKIP_S_LEVEL_CATEGORIES = ['foreshadowing', 'pacing', 'relationship-network'];
 const S_REQUIRED_FIELDS = ['surfaceSetting', 'deepTruth', 'narrativeFunction', 'coolPointFunction', 'limitations', 'revealStage', 'forbiddenContradictions', 'aiWritingNotes'];
 let sCount = 0;
@@ -262,60 +253,175 @@ for (const entry of allEntries) {
 }
 console.log(`  伏笔条目: ${foreshadowCount} 条, 检查完成`);
 
-// 10. 角色条目字段完整性检查
-console.log('--- 检查 10: 角色条目字段完整性 ---');
-const CHAR_REQUIRED_FIELDS = ['identity', 'personality', 'motivation', 'weakness', 'arc'];
-let charCount = 0;
+// ============================================================
+//  新增: 检查 10 — 资源条目字段 ERROR 级校验
+// ============================================================
+console.log('--- 检查 10: 资源条目字段完整性 (ERROR级) ---');
+const RESOURCE_REQUIRED_FIELDS = ['resourceTier', 'rarity', 'commonSources', 'primaryUsage', 'economicValue', 'narrativeFunction', 'forbiddenContradictions'];
+let resourceCount = 0;
+let resourceErrorCount = 0;
+for (const entry of allEntries) {
+  if (entry.category === 'resources' || (entry.code && /^RES-\d+$/.test(entry.code))) {
+    resourceCount++;
+    for (const field of RESOURCE_REQUIRED_FIELDS) {
+      if (entry[field] === undefined || entry[field] === null || (typeof entry[field] === 'string' && entry[field].trim() === '') || (Array.isArray(entry[field]) && entry[field].length === 0)) {
+        error(`资源条目缺少必填字段 "${field}"`, entry);
+        resourceErrorCount++;
+      }
+    }
+  }
+}
+console.log(`  资源条目: ${resourceCount} 条, 缺失字段: ${resourceErrorCount} 个`);
+
+// ============================================================
+//  新增: 检查 11 — A/S 级人物条目字段 ERROR 级校验
+// ============================================================
+console.log('--- 检查 11: A/S级人物条目字段完整性 (ERROR级) ---');
+const CHAR_REQUIRED_FIELDS = ['identity', 'personality', 'motivation', 'weakness', 'arc', 'firstAppearance', 'revealStage', 'futureDevelopment', 'forbiddenContradictions', 'aiWritingNotes'];
+let charAChecked = 0;
+let charErrorCount = 0;
 for (const entry of allEntries) {
   const isProtagonist = entry.id && entry.id.startsWith('protagonist-');
   const isCHR = entry.code && /^CHR-\d+$/.test(entry.code);
-  if (isProtagonist || isCHR) {
-    charCount++;
+  const isAorS = entry.importance === 'S' || entry.importance === 'A';
+  if ((isProtagonist || isCHR) && isAorS) {
+    charAChecked++;
     for (const field of CHAR_REQUIRED_FIELDS) {
       if (!entry[field] || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
-        warn(`角色条目缺少推荐字段 "${field}"`, entry);
+        error(`A/S级人物条目缺少必填字段 "${field}"`, entry);
+        charErrorCount++;
       }
     }
   }
 }
-console.log(`  角色条目: ${charCount} 条, 检查完成`);
+console.log(`  A/S级人物条目: ${charAChecked} 条, 缺失字段: ${charErrorCount} 个`);
 
-// 11. 资源条目字段完整性检查
-console.log('--- 检查 11: 资源条目字段完整性 ---');
-const RESOURCE_REQUIRED_FIELDS = ['resourceTier', 'rarity', 'commonSources', 'primaryUsage', 'economicValue'];
-let resourceCount = 0;
+// ============================================================
+//  新增: 检查 12 — 人物状态一致性校验
+// ============================================================
+console.log('--- 检查 12: 人物状态一致性校验 ---');
+const DEATH_KEYWORDS = ['已死亡', '已经死亡', '已退场', '已毁灭'];
+let deathStatusCheckCount = 0;
 for (const entry of allEntries) {
-  if (entry.category === 'resources') {
-    resourceCount++;
-    for (const field of RESOURCE_REQUIRED_FIELDS) {
-      if (entry[field] === undefined || entry[field] === null || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
-        warn(`资源条目缺少推荐字段 "${field}"`, entry);
-      }
+  const isCHR = entry.code && /^CHR-\d+$/.test(entry.code);
+  if (!isCHR) continue;
+
+  // 如果 status 为 destroyed，必须存在 death 字段
+  if (entry.status === 'destroyed') {
+    deathStatusCheckCount++;
+    if (!entry.deathChapter || !entry.deathEvent || !entry.deathCause) {
+      error(`人物 "status: 'destroyed'" 但缺少 deathChapter/deathEvent/deathCause 字段`, entry);
     }
   }
-}
-console.log(`  资源条目: ${resourceCount} 条, 检查完成`);
 
-// 12. 跨引用一致性总结
-console.log('--- 检查 12: 跨引用一致性总结 ---');
-let brokenForeshadowCount = 0;
-for (const entry of allEntries) {
-  const app = entry.firstAppearance;
-  if (app && typeof app === 'string' && /第\d+章/.test(app) && Array.isArray(entry.relatedForeshadowing)) {
-    for (const ref of entry.relatedForeshadowing) {
-      if (!ref || typeof ref !== 'string') continue;
-      if (!/^[A-Z]+-\d+$/.test(ref) && !/^[A-Z]+-\d+\s*\/\s*[A-Z]+-\d+$/.test(ref)) continue;
-      const parts = ref.split('/').map(s => s.trim());
-      for (const part of parts) {
-        if (!validIds.has(part) && !validCodes.has(part)) {
-          warn(`firstAppearance="${app}" 条目的相关伏笔引用 "${ref}" 中的 "${part}" 未找到对应条目`, entry);
-          brokenForeshadowCount++;
+  // 如果 status 为 planned，检查 detail/futureDevelopment/revealStage 中不能出现死亡关键词
+  if (entry.status === 'planned') {
+    const fieldsToCheck = [entry.detail, entry.futureDevelopment, entry.revealStage].filter(Boolean);
+    if (Array.isArray(entry.detail)) fieldsToCheck.push(entry.detail.join(''));
+    for (const text of fieldsToCheck) {
+      if (typeof text === 'string') {
+        for (const keyword of DEATH_KEYWORDS) {
+          if (text.includes(keyword)) {
+            warn(`人物 "status: 'planned'" 但内容中包含 "${keyword}"（应改为 plannedFate 描述方式）`, entry);
+          }
         }
       }
     }
   }
 }
-console.log(`  跨引用检查完成, 断裂引用: ${brokenForeshadowCount} 条`);
+console.log(`  人物状态一致性校验完成, destroyed检查: ${deathStatusCheckCount} 条`);
+
+// ============================================================
+//  新增: 检查 13 — 中后期人物提前登场校验
+// ============================================================
+console.log('--- 检查 13: 中后期人物提前登场校验 ---');
+for (const entry of allEntries) {
+  if (!entry.code) continue;
+
+  // 赫连獠 CHR-005 不得在第1-45章实体登场
+  if (entry.code === 'CHR-005') {
+    const app = entry.firstAppearance || '';
+    if (/第\d+章/.test(app)) {
+      const match = app.match(/第(\d+)章/);
+      if (match && parseInt(match[1]) <= 45) {
+        error(`赫连獠(CHR-005) firstAppearance="${app}" 早于第46章，违反第三卷登场规则`, entry);
+      }
+    }
+    // 也检查 revealStage 中是否有提前的暗示
+    if (entry.revealStage && /第\d+章/.test(entry.revealStage)) {
+      const stageMatch = entry.revealStage.match(/第(\d+)章/);
+      if (stageMatch && parseInt(stageMatch[1]) <= 45) {
+        error(`赫连獠(CHR-005) revealStage 提及第${stageMatch[1]}章实体行为，违反第三卷登场规则`, entry);
+      }
+    }
+  }
+
+  // 裁决者零号 CHR-006 不得在第1-155章实体登场
+  if (entry.code === 'CHR-006') {
+    const app = entry.firstAppearance || '';
+    if (/第\d+章/.test(app)) {
+      const match = app.match(/第(\d+)章/);
+      if (match && parseInt(match[1]) < 156) {
+        error(`裁决者零号(CHR-006) firstAppearance="${app}" 早于第156章，违反第五卷末实体登场规则`, entry);
+      }
+    }
+  }
+
+  // 燧明AI CHR-003 完整人格不得在第二卷后期前出现
+  if (entry.code === 'CHR-003') {
+    if (entry.trueAppearance) {
+      const ta = entry.trueAppearance || '';
+      // 如果 trueAppearance 提到第一卷或"前期"，则警告
+      if (/第一卷|前期/.test(ta)) {
+        warn(`燧明AI(CHR-003) trueAppearance="${ta}" 可能早于第二卷后期`, entry);
+      }
+    }
+  }
+}
+console.log('  中后期人物提前登场校验完成');
+
+// ============================================================
+//  新增: 检查 14 — 关系网络与人物登场同步校验
+// ============================================================
+console.log('--- 检查 14: 关系网络与人物登场同步校验 ---');
+const STAGE_KEYWORDS_WARNINGS = [
+  { pattern: /赫连獠[^<]{0,500}第[2-4]?[0-9]章/, msg: 'REL条目中赫连獠出现在早期章节(第1-45章)' },
+  { pattern: /裁决者零号.*第1[0-5]?[0-9]章(?!.*(?:埋线|异常|警告|追踪))/i, msg: 'REL条目中裁决者零号在早期章节非埋线方式出现' },
+];
+for (const entry of allEntries) {
+  if (entry.category !== 'relationship-network') continue;
+  const detail = typeof entry.detail === 'string' ? entry.detail : '';
+  for (const sw of STAGE_KEYWORDS_WARNINGS) {
+    if (sw.pattern.test(detail)) {
+      warn(`${sw.msg}`, entry);
+    }
+  }
+}
+console.log('  关系网络同步校验完成');
+
+// ============================================================
+//  新增: 检查 15 — slug 引用建议改用 code
+// ============================================================
+console.log('--- 检查 15: slug引用格式提示 ---');
+let slugRefNoteCount = 0;
+for (const entry of allEntries) {
+  for (const field of REFERENCE_FIELDS) {
+    const refs = entry[field];
+    if (!Array.isArray(refs)) continue;
+    for (const ref of refs) {
+      if (!ref || typeof ref !== 'string') continue;
+      // 匹配类似 "protagonist-linjin"、"loc-polluted-stream" 等 slug 格式
+      if (/^[a-z][a-z0-9-]+$/.test(ref) && ref.includes('-') && !ref.includes('/')) {
+        // 排除标准 code 格式（XXX-000）
+        if (!/^[A-Z]+-\d+$/.test(ref)) {
+          warn(`related 字段使用 slug "${ref}"，建议改用 code 格式（如 CHR-001）`, entry);
+          slugRefNoteCount++;
+        }
+      }
+    }
+  }
+}
+console.log(`  slug引用提示: ${slugRefNoteCount} 条`);
 
 // ============================================================
 //  输出结果
