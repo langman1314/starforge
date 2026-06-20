@@ -33,7 +33,7 @@ const ENTRIES_COOL_MOMENTS = [
     relatedCharacters: ['CHR-001'],
     relatedFactions: [],
     relatedLocations: ['LOC-003', 'LOC-002'],
-    relatedEvents: ['SYS-003'],
+    relatedEvents: ['SYS-019'],
     spoilerLevel: 'none',
     status: 'active',
     tags: ['爽点', '前期', '经济垄断', '信息差', '净水']
@@ -62,7 +62,7 @@ const ENTRIES_COOL_MOMENTS = [
     relatedCharacters: ['CHR-001'],
     relatedFactions: [],
     relatedLocations: ['LOC-001', 'LOC-002'],
-    relatedEvents: ['SYS-002'],
+    relatedEvents: ['SYS-018'],
     spoilerLevel: 'none',
     status: 'active',
     tags: ['爽点', '前期', '极寒夜', '供暖', '对比反差']
@@ -91,7 +91,7 @@ const ENTRIES_COOL_MOMENTS = [
     relatedCharacters: ['CHR-001'],
     relatedFactions: [],
     relatedLocations: ['LOC-001'],
-    relatedEvents: ['SYS-004'],
+    relatedEvents: ['SYS-020'],
     spoilerLevel: 'none',
     status: 'active',
     tags: ['爽点', '前期', '兽潮', '自动化', '材料收割']
@@ -236,7 +236,7 @@ const ENTRIES_COOL_MOMENTS = [
     relatedCharacters: ['CHR-001'],
     relatedFactions: [],
     relatedLocations: [],
-    relatedEvents: ['SYS-003'],
+    relatedEvents: ['SYS-019'],
     spoilerLevel: 'none',
     status: 'active',
     tags: ['爽点', '前期', '灾难套利', '信息差', '酸雨潮']

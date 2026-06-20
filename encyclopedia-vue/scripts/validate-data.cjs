@@ -200,6 +200,123 @@ for (const [cat, count] of [...categoryCounts.entries()].sort()) {
   console.log(`  ${cat}: ${count} 条`);
 }
 
+// 7. S-level 条目字段完整性检查
+console.log('--- 检查 7: S级条目字段完整性 ---');
+// 以下分类使用自有 schema，不检查标准 S 级字段
+const SKIP_S_LEVEL_CATEGORIES = ['foreshadowing', 'pacing', 'relationship-network'];
+const S_REQUIRED_FIELDS = ['surfaceSetting', 'deepTruth', 'narrativeFunction', 'coolPointFunction', 'limitations', 'revealStage', 'forbiddenContradictions', 'aiWritingNotes'];
+let sCount = 0;
+let sSkippedCount = 0;
+for (const entry of allEntries) {
+  if (entry.importance === 'S') {
+    if (SKIP_S_LEVEL_CATEGORIES.includes(entry.category) || entry.canonLevel === 'deprecated' || entry.status === 'hidden') {
+      sSkippedCount++;
+      continue;
+    }
+    sCount++;
+    for (const field of S_REQUIRED_FIELDS) {
+      if (!entry[field] || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
+        error(`S级条目缺少必填字段 "${field}"`, entry);
+      }
+    }
+  }
+}
+console.log(`  S级条目: ${sCount} 条已检查, ${sSkippedCount} 条已跳过(自有schema/已废弃), 检查完成`);
+
+// 8. 科技树条目解锁约束检查
+console.log('--- 检查 8: 科技树条目解锁约束 ---');
+const TECH_REQUIRED_FIELDS = ['unlockStage', 'requiredPermission', 'requiredMaterials', 'requiredBlueprint', 'requiredEnergy', 'risk'];
+let techCount = 0;
+for (const entry of allEntries) {
+  if (entry.category === 'tech-tree') {
+    techCount++;
+    for (const field of TECH_REQUIRED_FIELDS) {
+      if (!entry[field] || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
+        error(`科技树条目缺少必填字段 "${field}"`, entry);
+      }
+    }
+    if (!Array.isArray(entry.requiredMaterials) || entry.requiredMaterials.length === 0) {
+      warn(`科技树条目的 requiredMaterials 应为非空数组`, entry);
+    }
+  }
+}
+console.log(`  科技树条目: ${techCount} 条, 检查完成`);
+
+// 9. 伏笔条目字段完整性检查
+console.log('--- 检查 9: 伏笔条目字段完整性 ---');
+const FORESHADOW_REQUIRED_FIELDS = ['plantedIn', 'plantedMethod', 'hiddenMeaning', 'payoffVolume', 'payoffChapter', 'foreshadowingStatus'];
+const VALID_FORESHADOW_STATUSES = ['planted', 'developing', 'paid_off', 'abandoned'];
+let foreshadowCount = 0;
+for (const entry of allEntries) {
+  if (entry.category === 'foreshadowing') {
+    foreshadowCount++;
+    for (const field of FORESHADOW_REQUIRED_FIELDS) {
+      if (!entry[field] || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
+        error(`伏笔条目缺少必填字段 "${field}"`, entry);
+      }
+    }
+    if (entry.foreshadowingStatus && !VALID_FORESHADOW_STATUSES.includes(entry.foreshadowingStatus)) {
+      warn(`伏笔状态 "${entry.foreshadowingStatus}" 不在标准列表中 (planted/developing/paid_off/abandoned)`, entry);
+    }
+  }
+}
+console.log(`  伏笔条目: ${foreshadowCount} 条, 检查完成`);
+
+// 10. 角色条目字段完整性检查
+console.log('--- 检查 10: 角色条目字段完整性 ---');
+const CHAR_REQUIRED_FIELDS = ['identity', 'personality', 'motivation', 'weakness', 'arc'];
+let charCount = 0;
+for (const entry of allEntries) {
+  const isProtagonist = entry.id && entry.id.startsWith('protagonist-');
+  const isCHR = entry.code && /^CHR-\d+$/.test(entry.code);
+  if (isProtagonist || isCHR) {
+    charCount++;
+    for (const field of CHAR_REQUIRED_FIELDS) {
+      if (!entry[field] || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
+        warn(`角色条目缺少推荐字段 "${field}"`, entry);
+      }
+    }
+  }
+}
+console.log(`  角色条目: ${charCount} 条, 检查完成`);
+
+// 11. 资源条目字段完整性检查
+console.log('--- 检查 11: 资源条目字段完整性 ---');
+const RESOURCE_REQUIRED_FIELDS = ['resourceTier', 'rarity', 'commonSources', 'primaryUsage', 'economicValue'];
+let resourceCount = 0;
+for (const entry of allEntries) {
+  if (entry.category === 'resources') {
+    resourceCount++;
+    for (const field of RESOURCE_REQUIRED_FIELDS) {
+      if (entry[field] === undefined || entry[field] === null || (typeof entry[field] === 'string' && entry[field].trim() === '')) {
+        warn(`资源条目缺少推荐字段 "${field}"`, entry);
+      }
+    }
+  }
+}
+console.log(`  资源条目: ${resourceCount} 条, 检查完成`);
+
+// 12. 跨引用一致性总结
+console.log('--- 检查 12: 跨引用一致性总结 ---');
+let brokenForeshadowCount = 0;
+for (const entry of allEntries) {
+  const app = entry.firstAppearance;
+  if (app && typeof app === 'string' && /第\d+章/.test(app) && Array.isArray(entry.relatedForeshadowing)) {
+    for (const ref of entry.relatedForeshadowing) {
+      if (!ref || typeof ref !== 'string') continue;
+      if (!/^[A-Z]+-\d+$/.test(ref) && !/^[A-Z]+-\d+\s*\/\s*[A-Z]+-\d+$/.test(ref)) continue;
+      const parts = ref.split('/').map(s => s.trim());
+      for (const part of parts) {
+        if (!validIds.has(part) && !validCodes.has(part)) {
+          warn(`firstAppearance="${app}" 条目的相关伏笔引用 "${ref}" 中的 "${part}" 未找到对应条目`, entry);
+          brokenForeshadowCount++;
+        }
+      }
+    }
+  }
+}
+console.log(`  跨引用检查完成, 断裂引用: ${brokenForeshadowCount} 条`);
+
 // ============================================================
 //  输出结果
 // ============================================================

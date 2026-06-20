@@ -23,7 +23,7 @@ const ENTRIES_DISASTERS = [
     firstAppearance: '第7章',
     relatedCharacters: ['CHR-001'],
     relatedLocations: ['LOC-001', 'LOC-002', 'LOC-003'],
-    relatedEvents: ['SYS-008', 'SYS-009'],
+    relatedEvents: ['SYS-024', 'SYS-025'],
     spoilerLevel: 'none',
     status: 'completed',
     tags: ['灾难', '极寒夜', '第一轮', '事件记录'],
@@ -55,7 +55,7 @@ const ENTRIES_DISASTERS = [
     firstAppearance: '第21章',
     relatedCharacters: ['CHR-001'],
     relatedLocations: ['LOC-001', 'LOC-004'],
-    relatedEvents: ['SYS-008', 'SYS-010'],
+    relatedEvents: ['SYS-024', 'SYS-026'],
     spoilerLevel: 'none',
     status: 'completed',
     tags: ['灾难', '酸雨', '第二轮', '事件记录'],
@@ -87,7 +87,7 @@ const ENTRIES_DISASTERS = [
     firstAppearance: '第35章',
     relatedCharacters: ['CHR-001', 'CHR-004'],
     relatedLocations: ['LOC-001', 'LOC-002'],
-    relatedEvents: ['SYS-008', 'SYS-011'],
+    relatedEvents: ['SYS-024', 'SYS-027'],
     spoilerLevel: 'none',
     status: 'completed',
     tags: ['灾难', '兽潮', '第三轮', '事件记录'],
@@ -120,7 +120,7 @@ const ENTRIES_DISASTERS = [
     relatedCharacters: ['CHR-001', 'CHR-002'],
     relatedFactions: ['FAC-001', 'FAC-002', 'FAC-003'],
     relatedLocations: ['LOC-001', 'LOC-006'],
-    relatedEvents: ['SYS-008', 'SYS-012'],
+    relatedEvents: ['SYS-024', 'SYS-028'],
     spoilerLevel: 'minor',
     status: 'active',
     tags: ['灾难', '区域合并', '第四轮', '事件记录'],
@@ -153,7 +153,7 @@ const ENTRIES_DISASTERS = [
     relatedCharacters: ['CHR-001', 'CHR-002', 'CHR-005'],
     relatedFactions: ['FAC-001', 'FAC-006'],
     relatedLocations: ['LOC-006', 'LOC-008'],
-    relatedEvents: ['SYS-008', 'SYS-013'],
+    relatedEvents: ['SYS-024', 'SYS-029'],
     spoilerLevel: 'minor',
     status: 'active',
     tags: ['灾难', '异族投放', '第五轮', '事件记录'],
@@ -265,11 +265,11 @@ const ENTRIES_DISASTERS = [
   </tr>
   <tr>
     <td><strong>SYS编号</strong></td>
-    <td>SYS-009</td>
-    <td>SYS-010</td>
-    <td>SYS-011</td>
-    <td>SYS-012</td>
-    <td>SYS-013</td>
+    <td>SYS-025</td>
+    <td>SYS-026</td>
+    <td>SYS-027</td>
+    <td>SYS-028</td>
+    <td>SYS-029</td>
   </tr>
 </table>
 
@@ -294,7 +294,7 @@ const ENTRIES_DISASTERS = [
     relatedCharacters: ['CHR-001', 'CHR-002', 'CHR-004', 'CHR-005'],
     relatedFactions: ['FAC-001', 'FAC-002', 'FAC-003', 'FAC-005', 'FAC-006'],
     relatedLocations: ['LOC-001', 'LOC-002', 'LOC-003', 'LOC-004', 'LOC-006', 'LOC-008'],
-    relatedEvents: ['SYS-008', 'SYS-009', 'SYS-010', 'SYS-011', 'SYS-012', 'SYS-013'],
+    relatedEvents: ['SYS-008', 'SYS-025', 'SYS-026', 'SYS-027', 'SYS-028', 'SYS-029'],
     spoilerLevel: 'none',
     status: 'active',
     tags: ['灾难', '总表', '汇总', '参考'],
