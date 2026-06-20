@@ -9,11 +9,11 @@
 
 | 指标 | 数值 |
 |------|------|
-| 总条目数 | **231** |
-| 数据源文件 | **19 个** (`populate_*.js`) |
-| 生成 JSON 大小 | **901.6 KB** |
+| 总条目数 | **245** |
+| 数据源文件 | **21 个** (`populate_*.js`) |
+| 生成 JSON 大小 | **950.1 KB** |
 | 验证结果 | ✅ 0 错误 / 0 警告 |
-| Vue 构建结果 | ✅ 成功（1.86s） |
+| Vue 构建结果 | ✅ 成功（1.87s） |
 
 ---
 
@@ -21,10 +21,10 @@
 
 | 等级 | 数量 | 占比 |
 |------|------|------|
-| **S**（核心条目） | 59 | 25.5% |
-| **A**（重要条目） | 91 | 39.4% |
-| **B**（辅助条目） | 78 | 33.8% |
-| **C**（次要条目） | 3 | 1.3% |
+| **S**（核心条目） | 62 | 25.3% |
+| **A**（重要条目） | 97 | 39.6% |
+| **B**（辅助条目） | 81 | 33.1% |
+| **C**（次要条目） | 5 | 2.0% |
 
 ---
 
@@ -32,9 +32,9 @@
 
 | 等级 | 数量 | 含义 |
 |------|------|------|
-| **core** | 121 | 核心设定，不可变 |
-| **confirmed** | 76 | 已确认，可扩展 |
-| **locked** | 30 | 锁定等待剧情验证 |
+| **core** | 128 | 核心设定，不可变 |
+| **confirmed** | 80 | 已确认，可扩展 |
+| **locked** | 33 | 锁定等待剧情验证 |
 | **draft** | 4 | 草稿，待完善 |
 
 ---
@@ -43,7 +43,7 @@
 
 | 状态 | 数量 |
 |------|------|
-| active（活跃） | 209 |
+| active（活跃） | 216 |
 | hidden（隐藏） | 9 |
 | locked（锁定） | 6 |
 | completed（已完成） | 3 |
@@ -55,7 +55,7 @@
 
 ## 五、已接入模块清单
 
-### data/ 子目录（18 个，其中 15 个已接入数据）
+### data/ 子目录（19 个目录）
 
 | 目录 | 文件数 | 状态 |
 |------|--------|------|
@@ -65,30 +65,41 @@
 | `creatures/` | 1 | ✅ |
 | `disasters/` | 1 | ✅ |
 | `factions/` | 1 | ✅ |
+| `foreshadowing/` | 1 | ✅ |
 | `history/` | 1 | ✅ |
 | `items/` | 1 | ✅ |
 | `locations/` | 1 | ✅ |
 | `maps/` | 1 | ✅ |
 | `plot/` | 1 | ✅ |
+| `resources/` | 1 | ✅ |
 | `systems/` | 1 | ✅ |
 | `tech/` | 1 | ✅ |
 | `validation/` | 1 | ✅ |
-| `world-rules/` | 1 | ✅ |
+| `world-rules/` | 1 | ✅（9 条，WR-000~WR-010 S级锁定） |
 | `writing/` | 3 | ✅ |
-| `foreshadowing/` | 0 | ⚠️ 空目录 |
-| `resources/` | 0 | ⚠️ 空目录 |
 
 ### 根目录
 
 | 文件 | 状态 |
 |------|------|
-| `populate_core.js` | ✅ 25 条 |
-
-> 注：`foreshadowing/` 和 `resources/` 目录已创建但尚未有数据文件。伏笔条目目前放在 `writing/populate_forbidden.js` 中。
+| `populate_core.js` | ✅ 19 条（WR-012+、HIS-003） |
 
 ---
 
-## 六、分类条目统计（TOP 15）
+## 六、Stage 1 验证（WR 迁移完成）
+
+| 验收项 | 状态 |
+|--------|------|
+| WR-000 世界总览 在 world-rules 落地，S 级 locked | ✅ |
+| WR-001 万族考场真实面目 在 world-rules 落地，S 级 locked | ✅ |
+| WR-010 空间结构 在 world-rules 落地，S 级 locked | ✅ |
+| core.js 中无 WR-000~WR-010 编码 | ✅ |
+| 无编码碰撞 | ✅ |
+| generate-data + validate-data + build 全通过 | ✅ |
+
+---
+
+## 七、分类条目统计（TOP 15）
 
 | 分类 | 数量 |
 |------|------|
@@ -98,6 +109,7 @@
 | disasters（灾难） | 12 |
 | factions（势力） | 12 |
 | foreshadowing（伏笔） | 12 |
+| world-rules（世界规则） | 9 |
 | map（地图） | 9 |
 | arena（考场） | 7 |
 | timeline（时间线） | 6 |
@@ -107,37 +119,6 @@
 | alien-races（异族种族） | 5 |
 | items（道具） | 5 |
 | maps（区域地图） | 5 |
-
----
-
-## 七、数据目录结构
-
-```
-encyclopedia/
-├── populate_core.js                    (25 条, S/A级核心设定)
-├── data/
-│   ├── aliens/populate_aliens.js        (5 条)
-│   ├── characters/populate_characters.js (6 条)
-│   ├── chronology/populate_chronology.js (3 条)
-│   ├── creatures/populate_creatures.js   (10 条)
-│   ├── disasters/populate_disasters.js   (6 条)
-│   ├── factions/populate_factions.js     (12 条)
-│   ├── foreshadowing/                    (空)
-│   ├── history/populate_history.js       (2 条)
-│   ├── items/populate_items.js           (5 条)
-│   ├── locations/populate_locations.js   (9 条)
-│   ├── maps/populate_maps.js             (5 条)
-│   ├── plot/populate_plot.js             (18 条)
-│   ├── resources/                        (空)
-│   ├── systems/populate_systems.js       (17 条)
-│   ├── tech/populate_tech.js             (32 条)
-│   ├── validation/populate_validation.js (2 条)
-│   ├── world-rules/populate_world_rules.js (3 条)
-│   └── writing/
-│       ├── populate_cool_moments.js      (30 条)
-│       ├── populate_forbidden.js         (35 条)
-│       └── populate_writing_guide.js     (6 条)
-```
 
 ---
 
@@ -152,6 +133,8 @@ encyclopedia/
 | FAC | 势力（余火城、曙光联盟、狼血文明等） |
 | LOC | 地点（黑松林区、灰岩荒原等） |
 | TEC | 科技（废墟识别仪、电磁炮塔、歼星舰等） |
+| PLOT | 剧情分卷（六卷大纲） |
+| FO | 核心伏笔（12 条主线伏笔） |
 | VAL | 验证专用 |
 
 ---
@@ -160,16 +143,29 @@ encyclopedia/
 
 | 模块 | 状态 | 说明 |
 |------|------|------|
-| `data/foreshadowing/` | ⚠️ 空目录 | 伏笔条目分散写入 plot 和 forbidden 文件中，未独立成表 |
-| `data/resources/` | ⚠️ 空目录 | 资源体系仅存在于 `systems/populate_systems.js` 中的 `WR-007` 条目，未独立展开 |
-| 章节辅助系统 | ❌ 未开始 | 章节大纲模板、单章检查清单、爽点检查清单尚未实现 |
-| 关系网络图谱 | ❌ 未开始 | 人物关系图、势力关系图、科技树关系图尚未生成 |
-| 连载节奏表 | ❌ 未开始 | 用于控制更新节奏和剧情密度的规划工具 |
-| 数据文件模板化 | ⚠️ 部分完成 | `populate_writing_guide.js` 中包含条目结构说明 |
+| `data/resources/populate_resources.js` | ✅ 已完成 | RES-001~RES-014 五层资源体系已建立 |
+| 章节辅助系统 | ❌ 未开始 | 章节大纲模板、单章检查清单、爽点检查清单 |
+| 关系网络图谱 | ❌ 未开始 | 人物关系图、势力关系图、科技树关系图 |
+| 连载节奏表 | ❌ 未开始 | 控制更新节奏和剧情密度的规划工具 |
 
 ---
 
-## 十、构建与运行
+## 十、Stage 推进计划
+
+| Stage | 内容 | 状态 |
+|-------|------|------|
+| 1 | WR 迁移至 world-rules | ✅ 已完成 |
+| 2 | 创建 foreshadowing 独立数据文件 | ✅ 已完成 |
+| 3 | 创建 resources 独立数据文件 | ✅ 已完成 |
+| 4 | 更新 systems/characters/tech | ⏳ 待开始 |
+| 5 | 增强验证器 + 前端展示 | ⏳ 待开始 |
+| 6 | 生成完整审计报告 | ⏳ 待开始 |
+| 7 | 验收测试 | ⏳ 待开始 |
+| 8 | 交接模板 | ⏳ 待开始 |
+
+---
+
+## 十一、构建与运行
 
 ```bash
 # 生成 JSON 数据
@@ -188,15 +184,16 @@ npm run preview
 
 ---
 
-## 十一、近期修复记录
+## 十二、近期修复记录
 
 | 问题 | 修复方式 |
 |------|----------|
-| WR-000 编码重复 | core.js 中 "世界总览 v1.0" → WR-005 |
-| HIS-001 编码重复 | core.js 中 "前六轮人类文明失败史" → HIS-003 |
+| WR-000 编码重复 | 从 core.js 删除，world-rules 中有 S 级权威版本 |
+| WR-001~WR-007 编码碰撞 | 从 core.js 批量删除 6 个重复条目，world-rules 独占 WR-000~WR-010 |
+| WR-010 编码碰撞 | core.js WR-010 → WR-110，WR-011 → WR-101 |
+| core.js 条目收缩 | 25 条 → 19 条，移除已迁移至 world-rules 的条目 |
+| 编码前缀统一 | WR 前缀 WR-000~WR-041 统一到 world-rules 和 core.js |
 | 验证器枚举缺失 | validate-data.cjs 新增 `'locked'` 值 |
-| world-rules 编码冲突 | WR-001~003 → WR-050~052 |
-| 角色登场章节不一致 | 赫连獠→第15章, 裁决者零号→第30章 |
 
 ---
 
