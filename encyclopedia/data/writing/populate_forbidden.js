@@ -1034,6 +1034,49 @@ const ENTRIES_FORBIDDEN = [
     status: 'active',
     tags: ['禁止', '系统', '唯一性', '金手指', '主角特殊性']
   }
+,
+  // === BAN-V1-001 ===
+  {
+    code: 'BAN-V1-001',
+    id: 'ban-v1-001',
+    name: '第一卷禁止提前释放清单',
+    category: 'forbidden-list',
+    importance: 'S',
+    canonLevel: 'core',
+    summary: '第一卷（第1-20章）绝对禁止提前出现或揭示的15项内容。',
+    detail: '<p>以下15项内容在第1-20章内严格禁止提前出现。注意区分伏笔和提前揭示：本清单禁止的是实质性释放，不禁止以伏笔形式埋设线索。</p>',
+    forbiddenItems: [
+      {id:1,name:'余火号主体',forbiddenScope:'完整舰体/骨架/主控系统/武器装备不得出现',allowedForms:'允许以黑色废铁碎片和余火标记作为伏笔',violationConsequence:'提前出现将摧毁全书标题的叙事张力',referenceEntries:'FO-002,FO-008'},
+      {id:2,name:'余火号完整功能',forbiddenScope:'歼星舰完整功能描述不得揭示',allowedForms:'允许以权限不足制造信息缺口',violationConsequence:'破坏后期科技升级阶梯感',referenceEntries:'COOL-V1-001'},
+      {id:3,name:'燧明AI完整人格',forbiddenScope:'完整人格不得在第一卷出现',allowedForms:'允许以休眠碎片或数据终端形式出现',violationConsequence:'打破主角发现真相的节奏',referenceEntries:'CHR-003'},
+      {id:4,name:'赫连獠实体',forbiddenScope:'狼血文明领主及其军团不得登场',allowedForms:'允许以情报形式被提及',violationConsequence:'降低第三卷反派压迫感',referenceEntries:'CHR-005'},
+      {id:5,name:'裁决者零号实体',forbiddenScope:'任何实体形态或直接干预不得出现',allowedForms:'允许以异常度机制作为间接证明',violationConsequence:'破坏考场规则压迫感的建立',referenceEntries:'CHR-006'},
+      {id:6,name:'高维裁判会议',forbiddenScope:'宏观视角场景不得在第一卷出现',allowedForms:'不允许以任何形式出现',violationConsequence:'破坏第一卷沉浸感',referenceEntries:'BAN-022'},
+      {id:7,name:'通关骗局完整解释',forbiddenScope:'所谓通关只是另一种奴役的核心真相不得揭示',allowedForms:'允许以旧日留言碎片模糊暗示',violationConsequence:'摧毁全部悬念架构',referenceEntries:'FO-001'},
+      {id:8,name:'前六轮全部失败真相',forbiddenScope:'完整历史和各轮失败原因不得出现',allowedForms:'允许以第七轮人类留言模糊暗示',violationConsequence:'前六轮真相逐步揭露是第二至五卷核心骨架',referenceEntries:'FO-001'},
+      {id:9,name:'蓝星母星锚点完整真相',forbiddenScope:'蓝星被封存为母星锚点的真相不得揭示',allowedForms:'不允许以任何形式出现',violationConsequence:'降低第五卷核心爆点的情感冲击力',referenceEntries:''},
+      {id:10,name:'机械军团成型',forbiddenScope:'机械战犬/无人机蜂群/智能工厂不得建成',allowedForms:'允许引入机械维修台作为前置科技',violationConsequence:'中期科技升级失去对比感',referenceEntries:'PLOT-V1-001-Ch18'},
+      {id:11,name:'城市级护盾',forbiddenScope:'能量护盾技术不得解锁或展现',allowedForms:'不允许以任何形式出现',violationConsequence:'破坏防御升级阶梯感',referenceEntries:''},
+      {id:12,name:'星舰级主炮',forbiddenScope:'任何星舰级别武器不得出现',allowedForms:'允许在卷末暗示连接着更庞大的地下系统',violationConsequence:'压缩终局升级路径',referenceEntries:'FO-002'},
+      {id:13,name:'万族边境战场正式开放',forbiddenScope:'作为正式区域不得开放或提及',allowedForms:'允许在卷末暗示区域合并即将开始',violationConsequence:'破坏区域递进节奏感',referenceEntries:'MAP-004'},
+      {id:14,name:'大规模异族战争',forbiddenScope:'蓝星与异族的正式大规模战争不得出现',allowedForms:'允许以间接信息作为伏笔',violationConsequence:'偏离求生-探索-竞争-战争的递进逻辑',referenceEntries:'CHR-005'},
+      {id:15,name:'主角公开真实系统能力',forbiddenScope:'系统完整功能和真实来源不得公开',allowedForms:'允许仅对外展现特殊感知层面的表面能力',violationConsequence:'破坏隐藏身份的叙事结构',referenceEntries:'BAN-035'}
+    ],
+    relatedForbiddenRules: ['BAN-011','BAN-018','BAN-022','BAN-035'],
+    firstAppearance: '第一卷 第1章至第20章',
+    applicableTo: '第一卷全部章节/结尾钩子/旁白/备注',
+    aiWritingNotes: '核心原则：第一卷只负责让读者知道有秘密存在，不负责解释秘密是什么。',
+    spoilerLevel: 'none',
+    status: 'active',
+    tags: ['禁止','第一卷','提前释放','创作约束','BAN-V1'],
+    surfaceSetting: '第一卷绝对禁止提前出现或揭示的15项内容',
+    deepTruth: '信息释放节奏是长篇叙事的关键——禁止的不是伏笔，而是实质性揭示',
+    narrativeFunction: '确保第一卷的信息释放节奏符合全书叙事结构，防止提前透支后期爆点',
+    coolPointFunction: '通过保护后期爆点不被提前释放，确保7卷的爽点释放呈阶梯式上升',
+    limitations: '本清单仅适用于第一卷，第二卷及以后的禁止内容需另行建立对应清单',
+    revealStage: '第一卷，禁止内容是约束机制而非揭示内容',
+    forbiddenContradictions: '遵守禁止清单是对叙事结构的基本尊重——不得以"剧情需要"为由绕过清单'
+  }
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

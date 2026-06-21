@@ -57,7 +57,56 @@
 | `populate_relationships.js` | 引用格式统一 |
 | `populate_foreshadowing.js` | 引用格式统一 |
 
-### ✅ 任务 7：构建验证与 git 提交
+---
+
+## 七、Stage 3 — 第一卷写作基础设施（2026-06-21）
+
+### ✅ 新增数据文件（8个）
+
+| 文件 | 条目 | 说明 |
+|------|------|------|
+| `encyclopedia/data/maps/populate_maps.js` | MAP-001 | 黑松林区地图：补充完整地点、区域特征、系统权限说明 |
+| `encyclopedia/data/plot/populate_volume1_chapter_index.js` | PLOT-V1-001 | 第一卷前20章章节索引：五阶段递进结构，每章含核心冲突、爽点、钩子 |
+| `encyclopedia/data/plot/populate_protagonist_state.js` | STATE-001 | 林烬第1章初始状态：身体/精神/装备/资源/权限全维度基线 |
+| `encyclopedia/data/writing/populate_chapter1_package.js` | CHP-001, CHP-002 | 第一章写作调用包 + 写后回填模板（含 requiredReadings / forbiddenReveals / mustPlantForeshadowing） |
+| `encyclopedia/data/writing/populate_volume1_cool_curve.js` | COOL-V1-001 | 第一卷爽点曲线：7个核心爽点呈阶梯递进（认知→操作→防御→生存对比→探索→垄断→反杀） |
+| `encyclopedia/data/writing/populate_forbidden.js` | BAN-V1-001 | 第一卷禁止提前释放清单：15项绝对约束 |
+
+### ✅ 新增分类与编码前缀
+
+| 分类 | 前缀 | 用途 |
+|------|------|------|
+| `state` | STATE | 关键章节主角状态表 |
+| `chapter-package` | CHP | 章节写作调用包 |
+| `chapter-workflow` | CHP | 写后回填模板 |
+| `chapter-index` | PLOT-V1 | 分卷章节索引 |
+| `cool-moments` | COOL-V1 | 爽点设计库 |
+| `forbidden-list` | BAN-V1 | 禁止清单 |
+
+### ✅ 构建验证
+
+| 指标 | Stage 2 | Stage 3 |
+|------|---------|---------|
+| 数据文件数 | 23 | 27 |
+| 条目总数 | 272 | **278** |
+| 验证检查数 | 15 | 15（未新增检查项） |
+| Errors | 0 | **0** |
+| Warnings | 0 | **0** |
+| 断裂引用 | 0 | **0** |
+| JSON 大小 | 1076.3 KB | **1154.2 KB** |
+| 构建耗时 | 841ms | 1.16s |
+
+### ✅ Stage 3 工作项完成清单
+
+- [x] **任务1**：补充 MAP-001 黑松林区地图详细内容（含完整地点清单）
+- [x] **任务2**：创建 PLOT-V1-001 第一卷前20章章节索引（五阶段递进结构）
+- [x] **任务3**：创建 STATE-001 林烬第1章初始状态（全维度状态基线）
+- [x] **任务4**：创建 CHP-001 第一章写作调用包（含 requiredReadings / forbiddenReveals 等 8 个创作参考模块）
+- [x] **任务5**：创建 CHP-002 第一章写后回填模板（含 10 个 updateFields + 10 个 consistencyChecks）
+- [x] **任务6**：创建 COOL-V1-001 第一卷爽点曲线（7 个核心爽点 + 递进逻辑 + 对照组设计）
+- [x] **任务7**：创建 BAN-V1-001 第一卷禁止提前释放清单（15 项绝对约束 + 违规后果 + 避险策略）
+- [x] **任务8**：运行构建管线（generate-data → validate-data → vite build），修复所有语法错误（2处）和验证错误（46处）
+- [x] **任务9**：更新本审计报告（Stage 3 收口信息）
 
 - `encyclopedia.json` 生成成功：1076.3 KB, 272 条目
 - 验证检查全部通过：15 项检查，0 errors, 0 warnings
