@@ -136,6 +136,7 @@ const ENTRIES_CHARACTERS = [
     relatedEvents: [],
     spoilerLevel: 'minor',
     status: 'planned',
+    plannedFate: '第三卷中后期被林烬击败，临死前揭示蓝星人类六次失败的线索',
     tags: ['反派', '异族', '领主', '狼血文明', 'B+级'],
     code: 'CHR-005',
     importance: 'B',

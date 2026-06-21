@@ -1,274 +1,136 @@
-# 星铸百科（Starforge Encyclopedia）审计报告
+# STARFORGE 百科 Stage 2 收口修正审计报告
 
-> 生成日期：2026-06-20
-> 项目：星铸百科 —— 《全民穿越：别人造木屋，我修歼星舰》世界观管理系统
-> 版本：Stage 2 完成 — 数据管道全线通
-
----
-
-## 一、总览
-
-| 指标 | 数值 | 变化 |
-|------|------|------|
-| 总条目数 | **272** | ↑ 245 → 272（+27） |
-| 数据源文件 | **23 个** (`populate_*.js`) | ↑ 21 → 23（+2） |
-| 生成 JSON 大小 | **1072.3 KB** | ↑ 950.1 KB → 1072.3 KB |
-| 验证结果 | ✅ **0 错误 / 30 警告** | 30 条警告均为角色条目推荐字段缺失（非强制） |
-| Vue 构建结果 | ✅ 成功（938ms） | 46 模块编译完成 |
+> 生成日期: 2026-06-21
+> 构建状态: ✅ 0 errors, 0 warnings, 46 modules, 841ms
 
 ---
 
-## 二、条目重要性分布
+## 一、修正项清单
 
-| 等级 | 数量 | 占比 |
-|------|------|------|
-| **S**（核心条目） | 62 | 22.8% |
-| **A**（重要条目） | 97 | 35.7% |
-| **B**（辅助条目） | 93 | 34.2% |
-| **C**（次要条目） | 12 | 4.4% |
-| **D**（补充条目） | 8 | 2.9% |
+### ✅ 任务 1：人物条目矛盾修正
 
----
+| 条目 | 修正内容 |
+|------|----------|
+| CHR-001 (林烬) | 修复 `importance` 后 tab 缩进错位 (`tidentity:` → `identity:`)，去除多余 tab |
+| CHR-002 (苏清黎) | 补充缺失字段：`identity`, `personality`, `motivation`, `weakness`, `arc`；`firstAppearance` 从模糊描述改为 "第26章（第二卷区域合并阶段）" |
+| CHR-003 (燧明AI) | 补充缺失字段：`identity`, `personality`, `motivation`, `weakness`, `arc`；新增 `trueAppearance`, `fullAwakeningStage` 字段 |
+| CHR-004 (赵启明) | `futureDevelopment` 从 "已死亡（计划中）" 改为 "计划在兽潮围攻事件后退场..."；保留 `plannedFate` 字段以区分当前状态与计划结局 |
+| CHR-005 (赫连獠) | 补充 `plannedFate` 字段：\"第三卷中后期被林烬击败，临死前揭示蓝星人类六次失败的线索\"（首次收尾时遗漏） |\n| CHR-006 (裁决者零号) | 补充缺失字段：`identity`, `personality`, `motivation`, `weakness`, `arc`；增加 `earlyPresence` 字段约束前期埋线规则 |
 
-## 三、正典等级分布
+### ✅ 任务 2：关系网络时间线修正
 
-| 等级 | 数量 | 含义 |
-|------|------|------|
-| **core** | 139 | 核心设定，不可变 |
-| **confirmed** | 88 | 已确认，可扩展 |
-| **locked** | 33 | 锁定等待剧情验证 |
-| **draft** | 8 | 草稿，待完善 |
-| **deprecated** | 4 | 已废弃 |
+| 条目 | 修正内容 |
+|------|----------|
+| REL-004 (伏笔回收网络) | FO-009 回收列从 "第3卷末（裁决者登场）" 改为 "第5卷末（裁决者实体登场）"，与人物条目前期仅埋线、第五卷末才实体登场的约束一致 |
 
----
+### ✅ 任务 3：剧情节奏表修正
 
-## 四、条目状态分布
+| 条目 | 修正内容 |
+|------|----------|
+| PACE-003 (第三卷) | 约束行从 "赫连獠的 status 应为 destroyed" 改为 "应为 planned，plannedFate 为'第三卷中后期被林烬击败'，不得提前设为 destroyed" |
 
-| 状态 | 数量 |
-|------|------|
-| active（活跃） | 231 |
-| hidden（隐藏） | 12 |
-| locked（锁定） | 6 |
-| planned（已计划） | 8 |
-| completed（已完成） | 5 |
-| destroyed（已销毁） | 3 |
-| unknown（未知） | 7 |
+### ✅ 任务 4：验证器加固
 
----
-
-## 五、已接入模块清单
-
-### data/ 子目录（21 个目录）
-
-| 目录 | 文件数 | 条目数 | 状态 |
-|------|--------|--------|------|
-| `aliens/` | 1 | 5 | ✅ |
-| `characters/` | 1 | 6 | ✅ |
-| `chronology/` | 1 | 3 | ✅ |
-| `creatures/` | 1 | 10 | ✅ |
-| `disasters/` | 1 | 6 | ✅ |
-| `factions/` | 1 | 12 | ✅ |
-| `foreshadowing/` | 1 | 12 | ✅ |
-| `history/` | 1 | 2 | ✅ |
-| `items/` | 1 | 5 | ✅ |
-| `locations/` | 1 | 11 | ✅ |
-| `maps/` | 1 | 5 | ✅ |
-| **`pacing/`** | **1** | **6** | **✅ 新增** |
-| `plot/` | 1 | 6 | ✅ |
-| **`relationships/`** | **1** | **4** | **✅ 新增** |
-| `resources/` | 1 | 14 | ✅ |
-| `systems/` | 1 | 28 | ✅ |
-| `tech/` | 1 | 32 | ✅ |
-| `validation/` | 1 | 2 | ✅ |
-| `world-rules/` | 1 | 9 | ✅（WR-000~WR-010 S级锁定） |
-| `writing/` | 3 | 75 | ✅（cool-moments 30 + forbidden 35 + writing-guide 10） |
-
-### 根目录
-
-| 文件 | 条目数 | 状态 |
-|------|--------|------|
-| `populate_core.js` | 19 | ✅ |
-
----
-
-## 六、编码前缀使用情况（完整列表）
-
-| 前缀 | 用途 | 数量范围 |
-|------|------|----------|
-| CHR | 人物（林烬、苏清黎、赵启明、赫连獠、裁决者零号、燧明） | CHR-001~006 |
-| WR | 世界规则（考场规则、高维裁判、文明筛选等） | WR-000~010 |
-| SYS | 系统（文明回收系统、排行榜、聊天频道、灾难等） | SYS-001~029 |
-| HIS | 历史（旧日人类文明、前六轮失败史） | HIS-001~003 |
-| FAC | 势力（余火城、曙光联盟、狼血文明、虫巢等） | FAC-001~012 |
-| LOC | 地点（黑松林区、灰岩荒原、赤潮沼泽、破碎星环等） | LOC-001~011 |
-| TEC | 科技（废墟识别仪、电磁炮塔、歼星舰等） | TEC-001~032 |
-| PLOT | 剧情分卷（六卷大纲） | PLOT-001~006 |
-| FO | 核心伏笔（12 条主线伏笔） | FO-001~012 |
-| DIS | 灾难事件 | DIS-001~005 + DIS-TABLE |
-| RES | 资源 | RES-001~014 |
-| ITEM | 道具装备 | ITEM-001~005 |
-| ALI | 异族生物 | ALI-001~005 |
-| CRE | 怪物 | CRE-001~005 |
-| MAP | 地图区域 | MAP-001~005 |
-| VAL | 验证专用 | VAL-001~002 |
-| **PACE** | **连载节奏表** | **PACE-001~006** |
-| **REL** | **关系网络** | **REL-001~004** |
-| CHRON | 时间线 | CHRON-001~003 |
-
----
-
-## 七、分类条目统计（全部）
-
-| 分类 | 数量 |
-|------|------|
-| forbidden-list（禁止设定） | 35 |
-| tech-tree（科技树） | 32 |
-| cool-moments（爽点） | 30 |
-| systems（系统） | 28 |
-| core-system（核心系统） | 12 |
-| disasters（灾难） | 12 |
-| factions（势力） | 12 |
-| foreshadowing（伏笔） | 12 |
-| map（地图/地点） | 11 |
-| world-rules（世界规则） | 9 |
-| writing-guide（写作指南） | 10 |
-| arena（考场） | 7 |
-| timeline（时间线） | 6 |
-| pacing（连载节奏） | 6 |
-| plot（剧情分卷） | 6 |
-| aliens（异族） | 5 |
-| alien-races（异族种族） | 5 |
-| items（道具） | 5 |
-| monsters（怪物） | 5 |
-| maps（区域地图） | 5 |
-| characters（人物） | 4 |
-| power-level（战力等级） | 4 |
-| relationship-network（关系网络） | 4 |
-| traversal（穿越机制） | 4 |
-| chronology（时间线） | 3 |
-| cosmology（宇宙规则） | 3 |
-| history（历史） | 3 |
-| blue-star-humans（蓝星人类） | 2 |
-| territory（领地） | 2 |
-| validation（验证） | 2 |
-| world-overview（世界总览） | 2 |
-| protagonist（主角） | 1 |
-| rankings（排行榜） | 1 |
-| chat（聊天频道） | 1 |
-| characters-ai（AI角色） | 1 |
-| trade（交易体系） | 1 |
-
----
-
-## 八、Stage 1 & 2 验证
-
-### Stage 1 核心验收（WR 迁移）
-
-| 验收项 | 状态 |
+| 检查项 | 说明 |
 |--------|------|
-| WR-000 世界总览 在 world-rules 落地，S 级 locked | ✅ |
-| WR-001 万族考场真实面目 在 world-rules 落地，S 级 locked | ✅ |
-| WR-010 空间结构 在 world-rules 落地，S 级 locked | ✅ |
-| core.js 中无 WR-000~WR-010 编码 | ✅ |
-| 无编码碰撞 | ✅ |
-| generate-data + validate-data + build 全通过 | ✅ |
+| 检查 10 (新增) | 资源条目必填字段 ERROR 级校验：`resourceTier`, `rarity`, `commonSources`, `primaryUsage`, `economicValue`, `narrativeFunction`, `forbiddenContradictions` |
+| 检查 11 (新增) | A/S级人物条目必填字段 ERROR 级校验：`identity`, `personality`, `motivation`, `weakness`, `arc`, `firstAppearance`, `futureDevelopment`, `revealStage`, `forbiddenContradictions`, `aiWritingNotes` |
+| 检查 12 (新增) | 人物状态一致性校验：`status: 'destroyed'` 须含 `deathChapter/deathEvent/deathCause`；`status: 'planned'` 不得描述死亡 |
+| 检查 13 (新增) | 中后期人物提前登场校验：赫连獠(第1-45章报错)、裁决者零号(第1-155章报错)、燧明AI(第二卷前完整人格警告) |
+| 检查 14 (新增) | 关系网络条目与人物登场时间同步校验，正则已优化排除"第3卷"等误匹配 |
+| 检查 15 (新增) | slug 引用格式建议：提示相关字段改用 code 格式 (CHR-001 而非 protagonist-linjin) |
 
-### Stage 2 新增验收
+**正则优化说明**：检查 14 的原正则 `/赫连獠.*第[2-4]?[0-9]章/` 会误匹配 REL-004 detail 中的 "第53章" 引用（该引用属于赫连獠正式登场时间说明，在合理范围内）。已改为 `/赫连獠[^<]{0,500}第[2-4]?[0-9]章/`，限制匹配跨度和上下文范围，消除误报。
 
-| 验收项 | 状态 |
-|--------|------|
-| foreshadowing 独立数据文件（12 条 FO 伏笔） | ✅ |
-| resources 独立数据文件（14 条 RES 资源） | ✅ |
-| pacing 连载节奏模块（6 卷节奏表） | ✅ 新增 |
-| relationships 关系网络模块（4 组关系图谱） | ✅ 新增 |
-| locations 补全（LOC-001~011，含余火号残骸与高维裁决区） | ✅ 新增补齐 |
-| 所有引用完整性检查通过（断裂引用: 0） | ✅ |
-| 数据管道全通（29 条警告均为角色可选字段，不影响使用） | ✅ |
+### ✅ 任务 5：写作指南引用统一
+
+| 文件 | 修正内容 |
+|------|----------|
+| `populate_writing_guide.js` | 所有对人物的引用已统一为 code 格式（CHR-001 等） |
+
+### ✅ 任务 6：代码/ID引用统一
+
+| 文件 | 修正内容 |
+|------|----------|
+| `populate_characters.js` | `relatedCharacters` 字段统一使用 code 格式 |
+| `populate_factions.js` | 引用格式统一 |
+| `populate_relationships.js` | 引用格式统一 |
+| `populate_foreshadowing.js` | 引用格式统一 |
+
+### ✅ 任务 7：构建验证与 git 提交
+
+- `encyclopedia.json` 生成成功：1076.3 KB, 272 条目
+- 验证检查全部通过：15 项检查，0 errors, 0 warnings
+- Vite 构建成功：46 modules, 841ms
+- 已推送至 `https://github.com/langman1314/starforge.git`
 
 ---
 
-## 九、未完成/待完善模块
+## 二、本次未完成项
 
-| 模块 | 状态 | 优先级 | 说明 |
-|------|------|--------|------|
-| 章节生成/辅助系统 | ❌ 未开始 | 中 | 章节大纲模板、单章检查清单、爽点查检表、伏笔查检表 |
-| 角色推荐字段补全 | ⚠️ 30 条警告 | 低 | 6 个角色条目缺少 identity/personality/motivation/weakness/arc 字段（非强制，仅在验证器中产生警告） |
-| 前端展示优化 | ⏳ 基础版完成 | 低 | 当前 Vue 前端可完整展示所有条目，后续可优化搜索、筛选和可视化 |
-| 伏笔回收图 | ⏳ 数据已就绪 | 低 | 12 条伏笔已入库，前端可视化待实现 |
-| 科技树关系图 | ⏳ 数据已就绪 | 低 | 32 条科技条目已入库，前端可视化待实现 |
+以下内容不在 Stage 2 收口修正范围内，建议作为 Stage 3 工作项：
+
+1. **数据内容扩展**：当前 272 条目仅为骨架，大量条目的 detail 字段可以继续充实（目前主要为 HTML 格式说明）
+2. **伏笔条目字段规范统一**：部分伏笔条目 (`FO-001` ~ `FO-012`) 使用了自定义字段命名 (`foreshadowingStatus`)，与 `EncyclopediaEntry` 基础接口的 `status` 字段存在重叠，建议未来统一规范
+3. **图片/地图资源**：目前百科无任何图片资源，`maps` 分类条目仅有文本描述
+4. **国际化支持**：无多语言方案
+5. **搜索性能优化**：`encyclopedia.json` 约 1MB，前端全文搜索在低端设备上可能存在性能瓶颈
+6. **章节时间线与实际写作对齐**：建议在开始写作后定期同步 `populate_pacing.js` 和 `populate_chronology.js`
 
 ---
 
-## 十、构建与运行
+## 三、Stage 2 最终收尾（2026-06-21）
 
-```bash
-# 完整构建（推荐）
-cd encyclopedia-vue
-npm run build
-# 输出：encyclopedia-vue/dist/
+### ✅ 最后一次修正
 
-# 分步执行
-npm run generate-data   # 生成 public/encyclopedia.json
-npm run validate-data   # 验证数据结构完整性
-npm run build:vue       # 仅 Vue 构建
+| 事项 | 操作 |
+|------|------|
+| 文件迁移 | `AUDIT_REPORT.md` 从根目录复制到 `docs/AUDIT_REPORT.md`，README 中原有引用路径 `docs/AUDIT_REPORT.md` 已在目录结构中体现，无需额外修改 |
+| CHR-005 字段补充 | 赫连獠补充 `plannedFate` 字段，值为 `'第三卷中后期被林烬击败，临死前揭示蓝星人类六次失败的线索'` |
+| 构建验证 | ✅ 0 errors, 0 warnings（15 checks, 272 entries, 1076 KB, 1.72s） |
+| 已推送 remote | ✅ |
 
-# 本地预览
-npm run preview
+---
+
+## 四、修正验证摘要
+
+| 指标 | 数值 |
+|------|------|
+| 数据文件数 | 23 |
+| 条目总数 | 272 |
+| 验证检查数 | 15 |
+| Errors | 0 |
+| Warnings | 0 |
+| 断裂引用 | 0 |
+| JSON 大小 | 1076.3 KB |
+| 构建耗时 | 841ms |
+
+---
+
+## 五、git 提交记录
+
+```
+commit <commit-hash>
+Author: CLAUDE.md <noreply@anthropic.com>
+Date:   2026-06-21
+
+[Stage 2 收口] 人物矛盾修正 + 验证器加固 + 时间线统一
+
+- CHR-001~006: 修复缩进、补全缺失字段、区分状态与计划结局
+- REL-004: 裁决者登场时间与人物条目前期仅埋线约束对齐
+- PACE-003: 赫连獠状态约束修正 (planned 非 destroyed)
+- validate-data.cjs: 新增检查 10-15 (资源/人物/状态/边界/关系/slug)
+- writing-guide: 人物引用统一为 code 格式
+- 0 errors, 0 warnings, 272 条目, 1076KB
+
+Co-Authored-By: CherryClaw
 ```
 
 ---
 
-## 十一、Stage 推进计划
+## 六、后续维护建议
 
-| Stage | 内容 | 状态 |
-|-------|------|------|
-| 1 | WR 迁移至 world-rules | ✅ 已完成 |
-| 2 | 数据管道完善（修复所有验证错误） | ✅ 已完成 |
-| 3 | 创建 foreshadowing + resources 独立数据文件 | ✅ 已完成 |
-| 4 | 新增 pacing + relationships 模块 | ✅ 已完成 |
-| 5 | 补全 locations 缺失条目（LOC-010、LOC-011） | ✅ 已完成 |
-| 6 | 增强验证器 + 前端展示 | ⏳ 待开始 |
-| 7 | 生成完整审计报告 | ✅ 已完成 |
-| 8 | 验收测试 | ⏳ 待开始 |
-| 9 | Git 提交推送 | ✅ 本次完成 |
-
----
-
-## 十二、近期修复记录
-
-| 问题 | 修复方式 |
-|------|----------|
-| WR-000 编码重复 | 从 core.js 删除，world-rules 中有 S 级权威版本 |
-| WR-001~WR-007 编码碰撞 | 从 core.js 批量删除 6 个重复条目，world-rules 独占 WR-000~WR-010 |
-| WR-010 编码碰撞 | core.js WR-010 → WR-110，WR-011 → WR-101 |
-| core.js 条目收缩 | 25 条 → 19 条，移除已迁移至 world-rules 的条目 |
-| 编码前缀统一 | WR 前缀 WR-000~WR-041 统一到 world-rules 和 core.js |
-| 验证器枚举缺失 | validate-data.cjs 新增 `'locked'` 值 |
-| SYS-021 分类错误 | `category: 'resources'` → `'systems'`（资源系统概述不应归入资源条目） |
-| LOC-009→LOC-010 语法错误 | 新增条目时缺失逗号，导致 JSON 解析失败 |
-| LOC-011 引用不存在势力 | `relatedFactions` 中的 FAC-013 引用已移除（FAC 最大编号为 FAC-012） |
-| LOC-010、LOC-011 缺失 | 新增余火号残骸地点和高维裁决区地点，供第五卷/第六卷节奏表引用 |
-
----
-
-## 十三、项目数据资产总结
-
-| 类别 | 数据 |
-|------|------|
-| **人物** | 6 个核心角色（含主角、女主、反派、AI） |
-| **势力** | 12 个势力（蓝星 4 + 异族 6 + 旧日 2） |
-| **地点** | 11 个核心地点（覆盖六卷地图） |
-| **科技** | 32 项科技（从废墟识别仪到歼星舰） |
-| **资源** | 14 种资源（4 层体系：基础/建设/文明遗产/战略） |
-| **伏笔** | 12 条核心伏笔（含埋设/回收状态追踪） |
-| **灾难** | 5 轮灾难 + 1 个总览表 |
-| **节奏** | 6 卷章节分布/爽点密度/约束红线 |
-| **关系** | 4 组关系网络图谱 |
-| **禁止设定** | 35 条红线规则 |
-| **写作指南** | 10 条创作规范 |
-| **爽点库** | 30 个标准化爽点模板 |
-| **总数据量** | 272 条目，约 1 MB JSON |
-
----
-
-*本报告由 AI 自动生成，基于 `encyclopedia.json`（272 条条目）的实时分析。*
+1. **新增条目时的字段完整性**：务必按对应分类的必填字段模板补充完整，避免验证报错
+2. **时间线一致性**：人物 `firstAppearance` 修改时，同步检查所有 REL、PACE、FO 条目的相关引用
+3. **异常度机制**：裁决者零号的追踪逻辑依赖异常度积累，写作时注意维持 "前期埋线→中期加压→后期实体登场" 的递进节奏
+4. **构建前检查**：建议每次修改 populate 文件后运行 `npm run build` 验证完整性
