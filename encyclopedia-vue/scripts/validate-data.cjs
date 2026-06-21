@@ -170,7 +170,7 @@ console.log('--- 检查 4: 章节格式 ---');
 // 5. 状态字段检查
 console.log('--- 检查 5: 状态字段 ---');
 for (const entry of allEntries) {
-  if (entry.status && !['active', 'hidden', 'destroyed', 'unknown', 'completed', 'planned', 'locked'].includes(entry.status)) {
+  if (entry.status && !['active', 'background', 'hidden', 'destroyed', 'unknown', 'completed', 'planned', 'locked'].includes(entry.status)) {
     warn(`状态值 "${entry.status}" 不在标准列表中`, entry);
   }
   if (entry.spoilerLevel && !['none', 'minor', 'major', 'final'].includes(entry.spoilerLevel)) {
