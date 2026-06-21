@@ -165,63 +165,65 @@ CHR-006 裁决者零号无需修改，已保持正确节奏：
 
 ---
 
-**Stage 4：第一章 V1 无文案化骨架已建立。**
-本阶段未生成正文，未提供可照抄示例句，仅建立作者意向、场景功能、信息边界、情绪曲线、险胜式收益原则和留存考核。
-
----
-
 ## Stage 4 — 第一章 V1 无文案化骨架（2026-06-21）
+
+### ✅ 新增文件
+
+| 文件 | 说明 |
+|------|------|
+| `encyclopedia/data/writing/populate_chapter1_v1_outline.js` | CHP-003 第一章 V1 无文案化骨架独立文件 |
 
 ### ✅ 新增条目
 
 | 条目 | 文件 | 说明 |
 |------|------|------|
-| CHP-003 | `populate_chapter1_package.js` | 第一章 V1 无文案化骨架：作者意向、章节目标、七场景功能骨架、情绪曲线、信息边界、险胜式收益原则、留存检查表、一二章承接原则、主角/系统呈现偏好 |
+| CHP-003 | `populate_chapter1_v1_outline.js` | 第一章 V1 无文案化骨架：作者意向、章节目标、七场景功能骨架、情绪曲线、信息边界、险胜式收益原则、留存检查表、一二章承接原则、主角/系统呈现偏好 |
 
-### ✅ 主要更新
+### ✅ 修改文件
 
-| 文件 | 条目 | 更新内容 |
-|------|------|----------|
-| `populate_chapter1_package.js` | CHP-001 | requiredReadings 新增 CHP-003 引用 |
-| `populate_chapter1_package.js` | CHP-003（新增） | 完整的无文案化骨架，含 20+ 自定义字段 + 8 个 S 级必填字段 |
+| 文件 | 修改内容 |
+|------|----------|
+| `populate_chapter1_package.js` | CHP-003 已迁出至独立文件；CHP-001 的 openingHook / endingHook.content / aiWritingNotes 已从可照抄文案改为功能描述；requiredReadings 保留 CHP-003 引用；文件头说明已更新 |
+
+### ✅ 无文案化清理详情
+
+| 位置 | 原内容 | 现内容 |
+|------|--------|--------|
+| CHP-001 openingHook (line 38) | 具体小说开头句（可照抄） | 功能描述：前300字建立强制投放/破木屋/生存危机/天黑压力，具体表达由正文写手自行生成 |
+| CHP-001 endingHook.content (lines 122-126) | 完整系统提示原文（含【】括号的可照抄文案） | 功能描述：结尾停在未完成动作，不给奖励，不解释余火/余火号/旧日文明，系统提示文本由正文写手自行生成 |
+| CHP-001 aiWritingNotes (line 146) | 单句说明 | 扩充为包含防照抄说明：本调用包不得被照抄为正文，所有开头/系统提示/聊天频道/结尾钩子均需重新生成 |
+| CHP-003 位置 | 嵌入在 populate_chapter1_package.js 中（lines 259-717） | 迁出至独立文件 populate_chapter1_v1_outline.js，分工清晰 |
 
 ### ✅ 构建验证
 
 | 指标 | Stage 3 | Stage 4 |
 |------|---------|---------|
-| 数据文件数 | 27 | 27 |
+| 数据文件数 | 27 | **28** |
 | 条目总数 | 278 | **279** |
 | 验证检查数 | 15 | 15 |
 | Errors | 0 | **0** |
 | Warnings | 0 | **0** |
 | 断裂引用 | 0 | **0** |
-| JSON 大小 | 1155.7 KB | **1185.0 KB** |
-| 构建耗时 | 1.03s | **842ms** |
+| JSON 大小 | 1155.7 KB | **1185.3 KB** |
+| 构建耗时 | 1.03s | **1.63s** |
 
 ### ✅ 本阶段完成的工作
 
-- [x] **任务1**：根据 1325 行任务文档创建 CHP-003 第一章 V1 无文案化骨架
-- [x] **任务2**：将 CHP-003 引用加入 CHP-001 的 requiredReadings
-- [x] **任务3**：运行构建管线（generate-data → validate-data → vite build），0 errors 0 warnings
-- [x] **任务4**：更新本审计报告（Stage 4 完成情况）
+- [x] **任务1**：创建 `encyclopedia/data/writing/populate_chapter1_v1_outline.js`，将 CHP-003 迁出至独立文件
+- [x] **任务2**：清理 CHP-001 中三个可照抄文案位置（openingHook、endingHook.content、aiWritingNotes），替换为功能描述
+- [x] **任务3**：更新 populate_chapter1_package.js 文件头说明，反映 CHP-003 已不在该文件中
+- [x] **任务4**：运行构建管线（generate-data → validate-data → vite build），0 errors 0 warnings
+- [x] **任务5**：更新审计报告（Stage 4 完成情况）
 
-### ✅ CHP-003 条目内容摘要
+### ✅ 三者分工最终状态
 
-| 字段 | 内容 |
-|------|------|
-| `authorIntent` | 冷硬、紧迫、现实求生感，反模板系统文和开局无敌 |
-| `chapterGoals` | 12个表层目标 + 6个深层目标 + 14个非目标 |
-| `earlyRewardPrinciple` | 险胜式生存 + 信息差领先 + 小收益撬动大伏笔 |
-| `chapterRewardDesign` | 只给信息/认知/目标/伏笔收益，不给资源/战斗/科技收益 |
-| `discoveryOnlyPrinciple` | 第一章只发现不解决，回收留在第二章 |
-| `emotionalCurve` | 7阶段情绪曲线（强制落地→木屋困境→聊天频道→林烬判断→探索→废铁异常→结尾钩子） |
-| `sceneStructure` | 7场景功能骨架（每场景含 function/mustRelease/forbidden/checkpoint） |
-| `informationBoundary` | 13条可明示 + 6条可暗示 + 19条禁止 |
-| `retentionChecklist` | 7项留存检查（前300字/冲突/群像/主角/信息差/收益/结尾钩子） |
-| `forbiddenContent` | 24项绝对禁止 |
-| `chapter2Bridge` | 第一章结尾状态 + 第二章承接动作 + 收益边界 |
-| `protagonistPresentation` | 10项 mustBe + 9项 mustNotBe |
-| `systemPresentation` | 10项 mustBe + 8项 mustNotBe |
+```
+CHP-001 = 第一章写作调用入口（写前读什么、必须遵守什么）
+CHP-002 = 第一章写后回填模板（写完后回填什么）
+CHP-003 = 第一章V1无文案化骨架（作者意向、场景功能、情绪曲线、信息边界、收益节奏）
+```
+
+三者不重叠，不提供可照抄正文。
 
 ### ✅ 本阶段核心原则
 
@@ -233,6 +235,8 @@ CHR-006 裁决者零号无需修改，已保持正确节奏：
 - **怎么承接**（一二章承接原则、收益设计、回收预埋）
 
 正文写手必须基于本骨架自行生成表达，不得照抄骨架语言。
+
+本阶段未生成正文，未提供可照抄示例句，仅建立作者意向、场景功能、信息边界、情绪曲线、险胜式收益原则和留存考核。
 
 1. **数据内容扩展**：当前 272 条目仅为骨架，大量条目的 detail 字段可以继续充实（目前主要为 HTML 格式说明）
 2. **伏笔条目字段规范统一**：部分伏笔条目 (`FO-001` ~ `FO-012`) 使用了自定义字段命名 (`foreshadowingStatus`)，与 `EncyclopediaEntry` 基础接口的 `status` 字段存在重叠，建议未来统一规范
